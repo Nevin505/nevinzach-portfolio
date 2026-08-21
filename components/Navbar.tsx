@@ -5,10 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   TerminalIcon,
-  SettingsIcon,
-  PowerIcon,
   MenuIcon,
   CloseIcon,
+  FileTextIcon,
 } from "@/components/svg";
 
 export interface NavItem {
@@ -21,8 +20,6 @@ export interface NavbarProps {
   brandText?: string;
   navItems?: NavItem[];
   onTerminalClick?: () => void;
-  onSettingsClick?: () => void;
-  onPowerClick?: () => void;
   className?: string;
 }
 
@@ -32,23 +29,19 @@ const DEFAULT_NAV_ITEMS: NavItem[] = [
   { label: "contact", href: "/contact" },
 ];
 
-
 export function Navbar({
-  systemTitle = "Nevin Zachariah John",
   brandText = "DEV_OS V2.4",
   navItems = DEFAULT_NAV_ITEMS,
   onTerminalClick,
-  onSettingsClick,
-  onPowerClick,
   className = "",
 }: NavbarProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className={`w-full select-none ${className}`}>
+    <header className={`sticky top-0 z-50 w-full select-none ${className}`}>
       {/* Main OS-style Navigation Bar */}
-      <nav className="relative flex items-center justify-between px-4 sm:px-6 py-3 bg-surface-container/90 backdrop-blur-md border-y border-outline-variant/40 shadow-lg">
+      <nav className="relative flex items-center justify-between px-4 sm:px-6 py-3 bg-[#0a0f14]/95 backdrop-blur-md border-b border-outline-variant/40 shadow-lg">
         {/* Left: Brand & Nav Links */}
         <div className="flex items-center gap-6 sm:gap-10">
           {/* Brand/OS Version */}
@@ -100,7 +93,7 @@ export function Navbar({
             <TerminalIcon className="w-5 h-5" />
           </button>
 
-          {/* Resume Button */}
+          {/* Resume Button (Desktop) */}
           <a
             href="/resume.pdf"
             download="Nevin_Zachariah_John_Resume.pdf"
@@ -124,13 +117,12 @@ export function Navbar({
               <MenuIcon className="w-5 h-5" />
             )}
           </button>
-
         </div>
 
-        {/* Mobile Dropdown */}
+        {/* Mobile Dropdown Menu (Fully Opaque, Shadow-2xl, Elevated z-index) */}
         {mobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 p-4 bg-surface-container border border-outline-variant/50 rounded-xl shadow-xl sm:hidden z-50">
-            <ul className="flex flex-col gap-3 font-mono text-sm">
+          <div className="absolute top-full left-0 right-0 p-4 bg-[#0e141a] border-b border-x border-outline-variant/60 rounded-b-2xl shadow-2xl sm:hidden z-50">
+            <ul className="flex flex-col gap-2 font-mono text-sm">
               {navItems.map((item) => {
                 const isActive =
                   pathname === item.href ||
@@ -141,9 +133,9 @@ export function Navbar({
                     <Link
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`block px-3 py-2 rounded-lg transition-colors ${
+                      className={`block px-3 py-2.5 rounded-lg transition-colors ${
                         isActive
-                          ? "bg-surface-bright text-secondary font-semibold"
+                          ? "bg-surface-bright text-secondary font-semibold border-l-2 border-secondary"
                           : "text-on-surface-variant hover:bg-surface-bright/50 hover:text-on-surface"
                       }`}
                     >
@@ -152,6 +144,21 @@ export function Navbar({
                   </li>
                 );
               })}
+
+              {/* Mobile Resume Link */}
+              <li className="pt-2 border-t border-outline-variant/30">
+                <a
+                  href="/resume.pdf"
+                  download="Nevin_Zachariah_John_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3 py-2.5 rounded-lg bg-primary/20 text-secondary border border-secondary/40 font-semibold"
+                >
+                  <span>Download Resume</span>
+                  <FileTextIcon className="w-4 h-4" />
+                </a>
+              </li>
             </ul>
           </div>
         )}
