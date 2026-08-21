@@ -1,0 +1,26 @@
+{
+  "sectionTitle": "PROJECTS",
+  "sectionDescription": "A curated selection of high-performance architectural solutions and full-stack implementations by Nevin Zachariah John. Focused on REST APIs, microservices, and extreme optimization.",
+  "projects": [
+    {
+      "id": "video-processing-platform",
+      "path": "/SRC/VIDEO_PROC_PLATFORM",
+      "title": "Video Processing Platform",
+      "description": "A scalable backend video processing platform using Node.js to automate media editing workflows. Integrated FFmpeg pipelines for resizing, compression, and format conversion. Implemented asynchronous queue processing for high-performance handling.",
+      "tags": ["Node.js", "FFmpeg", "RabbitMQ", "Redis"],
+      "highlightTag": "FFmpeg",
+      "githubUrl": "https://github.com/Nevin505",
+      "liveUrl": "#"
+    },
+    {
+      "id": "real-time-chat-application",
+      "path": "/APP/CHAT_SYSTEM",
+      "title": "Real-Time Chat Application",
+      "description": "Developed a real-time chat application enabling instant messaging between users using Socket.IO. Built secure backend APIs for authentication and integrated MongoDB for storing conversation data.",
+      "tags": ["Node.js", "Socket.IO", "React", "MongoDB", "Express.js"],
+      "highlightTag": "Socket.IO",
+      "githubUrl": "https://github.com/Nevin505",
+      "liveUrl": "#"
+    }
+  ]
+}

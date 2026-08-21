@@ -1,0 +1,23 @@
+{
+  "greeting": "Hello World ! I'm",
+  "name": "Nevin Zachariah John",
+  "bio": "Crafting elegant solutions to complex problems with clean code and innovative thinking. Welcome to my personal dev workspace where ideas come to life.",
+  "developer": {
+    "focus": [
+      "Full-stack systems",
+      "Scalable APIs & data platforms"
+    ],
+    "stack": [
+      "Next.js / React",
+      "Nestjs/Java",
+      "Node.js",
+      "PostgreSQL"
+    ],
+    "principle": [
+      "Build reliable systems",
+      "that turn complex business",
+      "workflows into production-ready",
+      "software"
+    ]
+  }
+}
