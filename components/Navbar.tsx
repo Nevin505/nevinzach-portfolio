@@ -28,8 +28,10 @@ export interface NavbarProps {
 
 const DEFAULT_NAV_ITEMS: NavItem[] = [
   { label: "projects", href: "/projects" },
+  { label: "experience", href: "/experience" },
   { label: "contact", href: "/contact" },
 ];
+
 
 export function Navbar({
   systemTitle = "Nevin Zachariah John",

@@ -1,0 +1,37 @@
+{
+  "path": "/sys/user/data/",
+  "title": "EXPERIENCE",
+  "description": "Execution logs and deployed modules. Chronological sequence of professional operations and system architecture contributions.",
+  "experiences": [
+    {
+      "id": "creware-technologies",
+      "role": "Full Stack Developer",
+      "company": "Creware Technologies",
+      "period": "Nov 2024 - Present",
+      "iconType": "monitor",
+      "skills": ["React.js", "NestJS", "MongoDB", "PostgreSQL", "Redis", "RabbitMQ", "Docker"],
+      "highlightSkills": ["Redis", "RabbitMQ"],
+      "points": [
+        "Built and maintained full-stack web applications using React.js, NestJS, MongoDB, and PostgreSQL.",
+        "Built RESTful APIs with Koa and NestJS, optimizing backend logic to reduce unnecessary code and improve API response times.",
+        "Implemented Redis for caching frequently accessed data and session management, reducing database load and improving response times.",
+        "Integrated RabbitMQ for asynchronous, queue-based processing of background jobs, improving system reliability and throughput.",
+        "Containerized applications using Docker to ensure consistent environments across development, testing, and production."
+      ]
+    },
+    {
+      "id": "bytestrone",
+      "role": "Jr Software Developer Intern",
+      "company": "Bytestrone",
+      "period": "Mar 2023 - Oct 2023",
+      "iconType": "code",
+      "skills": ["Java", "React.js", "PostgreSQL"],
+      "highlightSkills": [],
+      "points": [
+        "Developed full-stack applications using Java, React.js, and PostgreSQL to support business and operational requirements.",
+        "Built and maintained backend services, database integrations, and responsive frontend interfaces for efficient system performance.",
+        "Collaborated on application development, troubleshooting, and feature enhancements while managing code through structured development workflows."
+      ]
+    }
+  ]
+}
