@@ -1,0 +1,34 @@
+{
+  "title": "CONTACT",
+  "description": "Initiate secure communication protocol. Awaiting input for collaborative opportunities and technical inquiries.",
+  "scriptPath": "~/contact_protocol.sh",
+  "activeNodes": [
+    {
+      "id": "github",
+      "title": "GitHub",
+      "subtitle": "github.com/nzjohn",
+      "href": "https://github.com/Nevin505",
+      "icon": "code"
+    },
+    {
+      "id": "linkedin",
+      "title": "LinkedIn",
+      "subtitle": "in/nevinzjohn",
+      "href": "https://www.linkedin.com/in/nevin-zachariah-john/",
+      "icon": "briefcase"
+    },
+    {
+      "id": "resume",
+      "title": "Resume.pdf",
+      "subtitle": "Download local copy",
+      "href": "/resume.pdf",
+      "downloadName": "Nevin_Zachariah_John_Resume.pdf",
+      "icon": "file-text"
+    }
+  ],
+  "telemetry": {
+    "status": "Accepting connections",
+    "responseTime": "~24h",
+    "location": "Earth"
+  }
+}

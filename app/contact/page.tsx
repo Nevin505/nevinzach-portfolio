@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import contactData from "@/data/contact.json";
 import {
   CodeIcon,
   BriefcaseIcon,
@@ -9,30 +10,15 @@ import {
 } from "@/components/svg";
 import { ContactForm } from "@/components/ContactForm";
 
+const ICON_MAP: Record<string, React.ReactNode> = {
+  code: <CodeIcon className="w-5 h-5 text-on-surface" />,
+  briefcase: <BriefcaseIcon className="w-5 h-5 text-on-surface" />,
+  "file-text": <FileTextIcon className="w-5 h-5 text-on-surface" />,
+};
+
 export default function ContactPage() {
-  const activeNodes = [
-    {
-      id: "github",
-      title: "GitHub",
-      subtitle: "github.com/nzjohn",
-      href: "https://github.com/Nevin505",
-      icon: <CodeIcon className="w-5 h-5 text-on-surface" />,
-    },
-    {
-      id: "linkedin",
-      title: "LinkedIn",
-      subtitle: "in/nevinzjohn",
-      href: "https://linkedin.com/in/nevinzjohn",
-      icon: <BriefcaseIcon className="w-5 h-5 text-on-surface" />,
-    },
-    {
-      id: "resume",
-      title: "Resume.pdf",
-      subtitle: "Download local copy",
-      href: "/resume.pdf",
-      icon: <FileTextIcon className="w-5 h-5 text-on-surface" />,
-    },
-  ];
+  const { title, description, scriptPath, activeNodes, telemetry } =
+    contactData;
 
   return (
     <main className="flex flex-col flex-1 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-10 sm:py-16 select-none">
@@ -41,14 +27,13 @@ export default function ContactPage() {
         <div className="flex items-center gap-3">
           <span className="w-6 sm:w-8 h-1 bg-secondary rounded-full" />
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-on-surface uppercase">
-            CONTACT
+            {title}
           </h1>
         </div>
 
         <div className="border-l-2 border-secondary/70 pl-4 py-0.5">
           <p className="font-mono text-xs sm:text-sm text-outline tracking-wide max-w-2xl leading-relaxed">
-            Initiate secure communication protocol. Awaiting input for
-            collaborative opportunities and technical inquiries.
+            {description}
           </p>
         </div>
       </div>
@@ -61,7 +46,7 @@ export default function ContactPage() {
           <div className="flex items-center justify-between border-b border-outline-variant/30 pb-3 mb-6">
             <div className="flex items-center gap-2 text-secondary font-mono text-xs">
               <TerminalIcon className="w-4 h-4" />
-              <span>~/contact_protocol.sh</span>
+              <span>{scriptPath}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-outline-variant/60" />
@@ -87,17 +72,15 @@ export default function ContactPage() {
                 <a
                   key={node.id}
                   href={node.href}
-                  download={
-                    node.id === "resume"
-                      ? "Nevin_Zachariah_John_Resume.pdf"
-                      : undefined
-                  }
+                  download={node.downloadName}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 bg-surface-container/90 border border-outline-variant/40 hover:border-secondary/60 rounded-xl p-4 transition-all duration-200 group hover:shadow-[0_0_20px_rgba(76,215,246,0.15)]"
                 >
                   <div className="p-2.5 bg-[#131920] border border-outline-variant/50 rounded-lg group-hover:border-secondary/60 transition-colors">
-                    {node.icon}
+                    {ICON_MAP[node.icon] || (
+                      <CodeIcon className="w-5 h-5 text-on-surface" />
+                    )}
                   </div>
                   <div className="flex-1 min-w-0 font-mono">
                     <h3 className="text-sm font-semibold text-on-surface group-hover:text-secondary transition-colors">
@@ -117,16 +100,16 @@ export default function ContactPage() {
             <div className="flex items-center justify-between">
               <span className="text-outline">Status:</span>
               <span className="text-secondary font-medium">
-                Accepting connections
+                {telemetry.status}
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-outline">Response Time:</span>
-              <span className="text-on-surface">~24h</span>
+              <span className="text-on-surface">{telemetry.responseTime}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-outline">Location:</span>
-              <span className="text-on-surface">Earth</span>
+              <span className="text-on-surface">{telemetry.location}</span>
             </div>
           </div>
         </div>
