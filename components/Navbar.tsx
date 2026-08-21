@@ -100,31 +100,10 @@ export function Navbar({
             <TerminalIcon className="w-5 h-5" />
           </button>
 
-          {/* Settings Icon */}
-          <button
-            type="button"
-            onClick={onSettingsClick}
-            aria-label="Open Settings"
-            title="Settings"
-            className="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-bright/70 active:scale-95 rounded-lg transition-all cursor-pointer"
-          >
-            <SettingsIcon className="w-5 h-5" />
-          </button>
-
-          {/* Power Button */}
-          <button
-            type="button"
-            onClick={onPowerClick}
-            aria-label="Power / Session"
-            title="Power / System"
-            className="p-2 text-on-surface-variant hover:text-error hover:bg-surface-bright/70 active:scale-95 rounded-lg transition-all cursor-pointer"
-          >
-            <PowerIcon className="w-5 h-5" />
-          </button>
-
           {/* Resume Button */}
           <a
             href="/resume.pdf"
+            download="Nevin_Zachariah_John_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex items-center justify-center px-3 py-1.5 text-xs font-mono font-medium text-on-primary bg-primary hover:brightness-110 active:scale-95 rounded-md transition-all ml-1 cursor-pointer"
