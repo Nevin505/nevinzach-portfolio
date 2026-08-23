@@ -10,7 +10,7 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="w-full px-4 sm:px-8 lg:px-16 py-12 sm:py-20 select-none"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-12 sm:py-20 select-none scroll-mt-20"
     >
       {/* Section Header */}
       <div className="mb-10 sm:mb-14 max-w-4xl space-y-3">

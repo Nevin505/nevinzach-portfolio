@@ -1,0 +1,126 @@
+"use client";
+
+import React from "react";
+import contactData from "@/data/contact.json";
+import {
+  CodeIcon,
+  BriefcaseIcon,
+  FileTextIcon,
+  PhoneIcon,
+  TerminalIcon,
+} from "@/components/svg";
+import { ContactForm } from "@/components/ContactForm";
+
+const ICON_MAP: Record<string, React.ReactNode> = {
+  code: <CodeIcon className="w-5 h-5 text-on-surface" />,
+  briefcase: <BriefcaseIcon className="w-5 h-5 text-on-surface" />,
+  phone: <PhoneIcon className="w-5 h-5 text-on-surface" />,
+  "file-text": <FileTextIcon className="w-5 h-5 text-on-surface" />,
+};
+
+export const Contact = () => {
+  const { title, description, scriptPath, activeNodes, telemetry } =
+    contactData;
+
+  return (
+    <section
+      id="contact"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-12 sm:py-20 select-none scroll-mt-20"
+    >
+      {/* Header Section */}
+      <div className="space-y-4 mb-10 sm:mb-14">
+        <div className="flex items-center gap-3">
+          <span className="w-6 sm:w-8 h-1 bg-secondary rounded-full" />
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-on-surface uppercase">
+            {title}
+          </h2>
+        </div>
+
+        <div className="border-l-2 border-secondary/70 pl-4 py-0.5">
+          <p className="font-mono text-xs sm:text-sm text-outline tracking-wide max-w-2xl leading-relaxed">
+            {description}
+          </p>
+        </div>
+      </div>
+
+      {/* Main Grid: Form + Active Nodes */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Left Column: Terminal Contact Protocol Form */}
+        <div className="lg:col-span-7 w-full bg-[#0e141a]/95 border border-outline-variant/50 rounded-xl p-5 sm:p-8 backdrop-blur-md shadow-2xl">
+          {/* Terminal Window Header */}
+          <div className="flex items-center justify-between border-b border-outline-variant/30 pb-3 mb-6">
+            <div className="flex items-center gap-2 text-secondary font-mono text-xs">
+              <TerminalIcon className="w-4 h-4" />
+              <span>{scriptPath}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-outline-variant/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-outline-variant/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-outline-variant/60" />
+            </div>
+          </div>
+
+          {/* Connected Contact Form */}
+          <ContactForm />
+        </div>
+
+        {/* Right Column: Active Nodes & Telemetry */}
+        <div className="lg:col-span-5 w-full space-y-6">
+          {/* Active Nodes List */}
+          <div>
+            <h3 className="font-mono text-xs text-outline tracking-widest uppercase mb-3">
+              ACTIVE NODES
+            </h3>
+
+            <div className="space-y-3">
+              {activeNodes.map((node) => (
+                <a
+                  key={node.id}
+                  href={node.href}
+                  download={node.downloadName}
+                  target={node.href.startsWith("http") ? "_blank" : undefined}
+                  rel={node.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="flex items-center gap-4 bg-surface-container/90 border border-outline-variant/40 hover:border-secondary/60 rounded-xl p-4 transition-all duration-200 group hover:shadow-[0_0_20px_rgba(76,215,246,0.15)]"
+                >
+                  <div className="p-2.5 bg-[#131920] border border-outline-variant/50 rounded-lg group-hover:border-secondary/60 transition-colors">
+                    {ICON_MAP[node.icon] || (
+                      <CodeIcon className="w-5 h-5 text-on-surface" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0 font-mono">
+                    <h4 className="text-sm font-semibold text-on-surface group-hover:text-secondary transition-colors">
+                      {node.title}
+                    </h4>
+                    <p className="text-xs text-outline truncate">
+                      {node.subtitle}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* System Telemetry Metadata */}
+          <div className="pt-4 border-t border-outline-variant/30 font-mono text-xs space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-outline">Status:</span>
+              <span className="text-secondary font-medium">
+                {telemetry.status}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-outline">Response Time:</span>
+              <span className="text-on-surface">{telemetry.responseTime}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-outline">Location:</span>
+              <span className="text-on-surface">{telemetry.location}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;

@@ -18,6 +18,13 @@
       "icon": "briefcase"
     },
     {
+      "id": "phone",
+      "title": "Phone",
+      "subtitle": "+91 94950 39249",
+      "href": "tel:+919495039249",
+      "icon": "phone"
+    },
+    {
       "id": "resume",
       "title": "Resume.pdf",
       "subtitle": "Download local copy",

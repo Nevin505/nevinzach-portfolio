@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import {
   TerminalIcon,
   MenuIcon,
@@ -24,9 +22,9 @@ export interface NavbarProps {
 }
 
 const DEFAULT_NAV_ITEMS: NavItem[] = [
-  { label: "projects", href: "/projects" },
-  { label: "experience", href: "/experience" },
-  { label: "contact", href: "/contact" },
+  { label: "projects", href: "#projects" },
+  { label: "experience", href: "#experience" },
+  { label: "contact", href: "#contact" },
 ];
 
 export function Navbar({
@@ -35,8 +33,38 @@ export function Navbar({
   onTerminalClick,
   className = "",
 }: NavbarProps) {
-  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll<HTMLElement>("section[id]");
+      const scrollPosition = window.scrollY + 180;
+      let current = "";
+
+      sections.forEach((section) => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        if (scrollPosition >= top && scrollPosition < top + height) {
+          current = section.getAttribute("id") || "";
+        }
+      });
+
+      // If at bottom of page, highlight contact
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 50
+      ) {
+        current = "contact";
+      }
+
+      setActiveSection(current);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header className={`sticky top-0 z-50 w-full select-none ${className}`}>
@@ -45,23 +73,22 @@ export function Navbar({
         {/* Left: Brand & Nav Links */}
         <div className="flex items-center gap-6 sm:gap-10">
           {/* Brand/OS Version */}
-          <Link
-            href="/"
+          <a
+            href="#"
             className="font-mono text-sm sm:text-base font-bold text-secondary tracking-widest hover:brightness-125 transition-all"
           >
             {brandText}
-          </Link>
+          </a>
 
           {/* Desktop Nav Items */}
           <ul className="hidden sm:flex items-center gap-6 font-mono text-sm">
             {navItems.map((item) => {
-              const isActive =
-                pathname === item.href ||
-                (item.href !== "/" && pathname?.startsWith(item.href));
+              const targetId = item.href.replace("#", "");
+              const isActive = activeSection === targetId;
 
               return (
                 <li key={item.href}>
-                  <Link
+                  <a
                     href={item.href}
                     className={`relative py-1 transition-colors ${
                       isActive
@@ -73,7 +100,7 @@ export function Navbar({
                     {isActive && (
                       <span className="absolute left-0 bottom-0 w-full h-[2px] bg-on-surface rounded-full transition-all" />
                     )}
-                  </Link>
+                  </a>
                 </li>
               );
             })}
@@ -119,18 +146,17 @@ export function Navbar({
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu (Fully Opaque, Shadow-2xl, Elevated z-index) */}
+        {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div className="absolute top-full left-0 right-0 p-4 bg-[#0e141a] border-b border-x border-outline-variant/60 rounded-b-2xl shadow-2xl sm:hidden z-50">
             <ul className="flex flex-col gap-2 font-mono text-sm">
               {navItems.map((item) => {
-                const isActive =
-                  pathname === item.href ||
-                  (item.href !== "/" && pathname?.startsWith(item.href));
+                const targetId = item.href.replace("#", "");
+                const isActive = activeSection === targetId;
 
                 return (
                   <li key={item.href}>
-                    <Link
+                    <a
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`block px-3 py-2.5 rounded-lg transition-colors ${
@@ -140,7 +166,7 @@ export function Navbar({
                       }`}
                     >
                       {item.label}
-                    </Link>
+                    </a>
                   </li>
                 );
               })}

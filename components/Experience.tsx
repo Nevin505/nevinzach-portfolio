@@ -14,7 +14,10 @@ export const Experience = () => {
   const { path, title, description, experiences } = experienceData;
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-10 sm:py-16 select-none">
+    <section
+      id="experience"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-12 sm:py-20 select-none scroll-mt-20"
+    >
       {/* Section Header */}
       <div className="space-y-3 mb-10 sm:mb-12 pb-6 border-b border-outline-variant/30">
         {/* Breadcrumb Path */}

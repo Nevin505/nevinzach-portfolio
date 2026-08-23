@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     console.log(`   SMTP Host: ${smtpHost}:${smtpPort}`);
 
     if (!smtpUser || !smtpPass) {
-      const missingConfig = `SMTP configuration is missing. Please set SMTP_USER and SMTP_PASS in your .env or .env.local file.`;
+      const missingConfig = `Something Went Wrong`;
       console.error(`❌ [DEV_OS] ${missingConfig}`);
       return NextResponse.json({ error: missingConfig }, { status: 500 });
     }

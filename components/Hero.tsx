@@ -1,18 +1,16 @@
-"use client";
-
-import React, { useState } from "react";
-import Link from "next/link";
+import React from "react";
 import { Button } from "@/components/ui/Button";
 import { CodeIcon, MailIcon } from "@/components/svg";
-import { ContactModal } from "@/components/ContactModal";
 import heroData from "@/data/developer.json";
 
 export const Hero = () => {
   const { greeting, name, bio, developer } = heroData;
-  const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
-    <section className="flex flex-col-reverse lg:flex-row items-center justify-between w-full min-h-[calc(100vh-8rem)] gap-12 px-4 sm:px-8 lg:px-16 py-8 sm:py-12 select-none">
+    <section
+      id="about"
+      className="flex flex-col-reverse lg:flex-row items-center justify-between w-full max-w-7xl mx-auto min-h-[calc(100vh-8rem)] gap-12 px-4 sm:px-8 lg:px-16 py-8 sm:py-12 select-none scroll-mt-20"
+    >
       {/* Left Column: Introduction & CTAs */}
       <div className="flex-1 flex flex-col justify-center space-y-6 max-w-2xl">
         {/* Terminal greeting */}
@@ -35,7 +33,7 @@ export const Hero = () => {
 
         {/* Call to Actions */}
         <div className="flex flex-wrap items-center gap-4 pt-2">
-          <Link href="/projects">
+          <a href="#projects">
             <Button
               variant="primary"
               size="lg"
@@ -43,15 +41,16 @@ export const Hero = () => {
             >
               View Projects
             </Button>
-          </Link>
-          <Button
-            variant="secondary"
-            size="lg"
-            onClick={() => setIsContactOpen(true)}
-            leftIcon={<MailIcon className="w-4 h-4" />}
-          >
-            Contact Me
-          </Button>
+          </a>
+          <a href="#contact">
+            <Button
+              variant="secondary"
+              size="lg"
+              leftIcon={<MailIcon className="w-4 h-4" />}
+            >
+              Contact Me
+            </Button>
+          </a>
         </div>
       </div>
 
@@ -127,12 +126,6 @@ export const Hero = () => {
           <div className="absolute bottom-3 left-3 h-1.5 w-1.5 rounded-full bg-outline-variant/40" />
         </div>
       </div>
-
-      {/* Slide-Up Contact Modal */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
     </section>
   );
 };
