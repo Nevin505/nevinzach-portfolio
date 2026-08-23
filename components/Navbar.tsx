@@ -7,6 +7,7 @@ import {
   CloseIcon,
   FileTextIcon,
 } from "@/components/svg";
+import { TerminalModal } from "@/components/TerminalModal";
 
 export interface NavItem {
   label: string;
@@ -35,6 +36,19 @@ export function Navbar({
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+
+  // Global Cmd+K / Ctrl+K keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsTerminalOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,9 +126,9 @@ export function Navbar({
           {/* Terminal Icon */}
           <button
             type="button"
-            onClick={onTerminalClick}
-            aria-label="Open Terminal"
-            title="Terminal"
+            onClick={onTerminalClick || (() => setIsTerminalOpen(true))}
+            aria-label="Open Terminal (Cmd+K)"
+            title="Terminal (Cmd+K)"
             className="p-2 text-on-surface-variant hover:text-secondary hover:bg-surface-bright/70 active:scale-95 rounded-lg transition-all cursor-pointer"
           >
             <TerminalIcon className="w-5 h-5" />
@@ -150,6 +164,26 @@ export function Navbar({
         {mobileMenuOpen && (
           <div className="absolute top-full left-0 right-0 p-4 bg-[#0e141a] border-b border-x border-outline-variant/60 rounded-b-2xl shadow-2xl sm:hidden z-50">
             <ul className="flex flex-col gap-2 font-mono text-sm">
+              {/* Mobile Terminal Action */}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setIsTerminalOpen(true);
+                  }}
+                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-bright/50 hover:text-secondary font-mono text-sm transition-colors cursor-pointer"
+                >
+                  <span className="flex items-center gap-2">
+                    <TerminalIcon className="w-4 h-4 text-secondary" />
+                    <span>Open Terminal</span>
+                  </span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1a2026] text-outline">
+                    ⌘K
+                  </span>
+                </button>
+              </li>
+
               {navItems.map((item) => {
                 const targetId = item.href.replace("#", "");
                 const isActive = activeSection === targetId;
@@ -189,6 +223,12 @@ export function Navbar({
           </div>
         )}
       </nav>
+
+      {/* Interactive Command Palette / Terminal Modal */}
+      <TerminalModal
+        isOpen={isTerminalOpen}
+        onClose={() => setIsTerminalOpen(false)}
+      />
     </header>
   );
 }
