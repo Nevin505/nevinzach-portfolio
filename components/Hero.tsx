@@ -89,15 +89,45 @@ export const Hero = () => {
               <span className="text-on-surface">],</span>
             </div>
 
-            {/* stack array */}
+            {/* languages array */}
             <div className="pl-4 sm:pl-6 pt-1">
-              <span className="text-[#d2a8ff]">stack</span>
+              <span className="text-[#d2a8ff]">languages</span>
               <span className="text-on-surface">: [</span>
               <div className="pl-4 sm:pl-6 text-[#a5d6ff]">
-                {developer.stack.map((tech, index) => (
-                  <div key={tech}>
-                    &apos;{tech}&apos;
-                    {index < developer.stack.length - 1 ? "," : ""}
+                {developer.languages.map((lang, index) => (
+                  <div key={lang}>
+                    &apos;{lang}&apos;
+                    {index < developer.languages.length - 1 ? "," : ""}
+                  </div>
+                ))}
+              </div>
+              <span className="text-on-surface">],</span>
+            </div>
+
+            {/* frameworks array */}
+            <div className="pl-4 sm:pl-6 pt-1">
+              <span className="text-[#d2a8ff]">frameworks</span>
+              <span className="text-on-surface">: [</span>
+              <div className="pl-4 sm:pl-6 text-[#a5d6ff]">
+                {developer.frameworks.map((fw, index) => (
+                  <div key={fw}>
+                    &apos;{fw}&apos;
+                    {index < developer.frameworks.length - 1 ? "," : ""}
+                  </div>
+                ))}
+              </div>
+              <span className="text-on-surface">],</span>
+            </div>
+
+            {/* database array */}
+            <div className="pl-4 sm:pl-6 pt-1">
+              <span className="text-[#d2a8ff]">database</span>
+              <span className="text-on-surface">: [</span>
+              <div className="pl-4 sm:pl-6 text-[#a5d6ff]">
+                {developer.database.map((db, index) => (
+                  <div key={db}>
+                    &apos;{db}&apos;
+                    {index < developer.database.length - 1 ? "," : ""}
                   </div>
                 ))}
               </div>
