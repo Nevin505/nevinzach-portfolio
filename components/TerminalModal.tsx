@@ -55,6 +55,20 @@ export const TerminalModal = ({ isOpen, onClose }: TerminalModalProps) => {
     }
   }, [history, isOpen]);
 
+  // Lock body and html scroll when open
+  useEffect(() => {
+    if (isOpen) {
+      const originalBodyOverflow = document.body.style.overflow;
+      const originalDocOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalBodyOverflow;
+        document.documentElement.style.overflow = originalDocOverflow;
+      };
+    }
+  }, [isOpen]);
+
   // Handle escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -366,12 +380,12 @@ export const TerminalModal = ({ isOpen, onClose }: TerminalModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200 overscroll-contain"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-3xl h-[520px] max-h-[85vh] flex flex-col bg-[#0a0f14]/95 border border-outline-variant/60 rounded-xl shadow-2xl overflow-hidden font-mono text-sm backdrop-blur-xl">
+      <div className="relative w-full max-w-3xl h-[520px] max-h-[85vh] flex flex-col bg-[#0a0f14]/95 border border-outline-variant/60 rounded-xl shadow-2xl overflow-hidden font-mono text-sm backdrop-blur-xl overscroll-contain">
         {/* Terminal Header Bar */}
         <div className="flex items-center justify-between px-4 py-3 bg-[#131920] border-b border-outline-variant/40 select-none">
           <div className="flex items-center gap-2">
@@ -432,7 +446,7 @@ export const TerminalModal = ({ isOpen, onClose }: TerminalModalProps) => {
 
         {/* Terminal Output Body */}
         <div
-          className={`flex-1 p-4 sm:p-5 overflow-y-auto space-y-3 font-mono text-xs sm:text-sm ${
+          className={`flex-1 p-4 sm:p-5 overflow-y-auto overscroll-contain space-y-3 font-mono text-xs sm:text-sm ${
             isMatrixActive ? "text-[#4ae176]" : "text-on-surface"
           }`}
           onClick={() => inputRef.current?.focus()}
