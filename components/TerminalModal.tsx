@@ -55,16 +55,29 @@ export const TerminalModal = ({ isOpen, onClose }: TerminalModalProps) => {
     }
   }, [history, isOpen]);
 
-  // Lock body and html scroll when open
+  // Lock body and html scroll when open (prevents iOS/mobile bounce and desktop scrolling)
   useEffect(() => {
     if (isOpen) {
-      const originalBodyOverflow = document.body.style.overflow;
-      const originalDocOverflow = document.documentElement.style.overflow;
+      const scrollY = window.scrollY;
+      const originalPosition = document.body.style.position;
+      const originalTop = document.body.style.top;
+      const originalWidth = document.body.style.width;
+      const originalOverflow = document.body.style.overflow;
+      const originalHtmlOverflow = document.documentElement.style.overflow;
+
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
+
       return () => {
-        document.body.style.overflow = originalBodyOverflow;
-        document.documentElement.style.overflow = originalDocOverflow;
+        document.body.style.position = originalPosition;
+        document.body.style.top = originalTop;
+        document.body.style.width = originalWidth;
+        document.body.style.overflow = originalOverflow;
+        document.documentElement.style.overflow = originalHtmlOverflow;
+        window.scrollTo(0, scrollY);
       };
     }
   }, [isOpen]);
@@ -380,12 +393,12 @@ export const TerminalModal = ({ isOpen, onClose }: TerminalModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200 overscroll-contain"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200 overscroll-contain touch-none"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-3xl h-[520px] max-h-[85vh] flex flex-col bg-[#0a0f14]/95 border border-outline-variant/60 rounded-xl shadow-2xl overflow-hidden font-mono text-sm backdrop-blur-xl overscroll-contain">
+      <div className="relative w-full max-w-3xl h-[520px] max-h-[85vh] flex flex-col bg-[#0a0f14]/95 border border-outline-variant/60 rounded-xl shadow-2xl overflow-hidden font-mono text-sm backdrop-blur-xl overscroll-contain touch-auto">
         {/* Terminal Header Bar */}
         <div className="flex items-center justify-between px-4 py-3 bg-[#131920] border-b border-outline-variant/40 select-none">
           <div className="flex items-center gap-2">
