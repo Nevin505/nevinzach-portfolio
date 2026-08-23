@@ -13,24 +13,27 @@ export interface FooterProps {
 }
 
 export const Footer = ({
-  copyrightText = "© 2024 DEV_OS SYSTEM",
+  copyrightText,
   statusText = "Status: Online",
   version = "v1.0.4",
   githubUrl = "https://github.com/Nevin505",
   showBackToTop = true,
   className = "",
 }: FooterProps) => {
+  const currentYear = new Date().getFullYear();
+  const displayCopyright = copyrightText || `© ${currentYear} DEV_OS SYSTEM`;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <footer
-      className={`w-full border-t border-outline-variant/30 bg-surface-container/60 backdrop-blur-md px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-outline select-none mt-auto ${className}`}
+      className={`w-full border-t border-outline-variant/30 bg-surface-container/60 backdrop-blur-md px-4 sm:px-8 py-3 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-outline mt-auto ${className}`}
     >
       {/* Left: System Copyright */}
       <div className="flex items-center gap-2 text-on-surface-variant font-medium">
-        <span>{copyrightText}</span>
+        <span>{displayCopyright}</span>
       </div>
 
       {/* Right: Status, Version, Links & Controls */}
