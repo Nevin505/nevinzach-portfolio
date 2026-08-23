@@ -134,6 +134,21 @@ export const Hero = () => {
               <span className="text-on-surface">],</span>
             </div>
 
+            {/* devops array */}
+            <div className="pl-4 sm:pl-6 pt-1">
+              <span className="text-[#d2a8ff]">devops</span>
+              <span className="text-on-surface">: [</span>
+              <div className="pl-4 sm:pl-6 text-[#a5d6ff]">
+                {developer.devops.map((tool, index) => (
+                  <div key={tool}>
+                    &apos;{tool}&apos;
+                    {index < developer.devops.length - 1 ? "," : ""}
+                  </div>
+                ))}
+              </div>
+              <span className="text-on-surface">],</span>
+            </div>
+
             {/* principle string */}
             <div className="pl-4 sm:pl-6 pt-1">
               <span className="text-[#d2a8ff]">principle</span>
