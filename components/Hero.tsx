@@ -9,43 +9,45 @@ export const Hero = () => {
   return (
     <section
       id="about"
-      className="flex flex-col-reverse lg:flex-row items-center justify-between w-full max-w-7xl mx-auto min-h-[calc(100vh-8rem)] gap-12 px-4 sm:px-8 lg:px-16 py-8 sm:py-12 select-none scroll-mt-20"
+      className="flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl mx-auto min-h-[calc(100vh-5rem)] lg:min-h-[calc(100vh-8rem)] gap-10 lg:gap-12 px-4 sm:px-8 lg:px-16 py-8 sm:py-12 select-none scroll-mt-20"
     >
       {/* Left Column: Introduction & CTAs */}
-      <div className="flex-1 flex flex-col justify-center space-y-6 max-w-2xl">
+      <div className="flex-1 flex flex-col justify-center space-y-5 sm:space-y-6 max-w-2xl w-full">
         {/* Terminal greeting */}
         <div className="flex items-center gap-2">
-          <span className="font-mono text-sm sm:text-base text-secondary font-medium tracking-wide">
+          <span className="font-mono text-xs sm:text-base text-secondary font-medium tracking-wide">
             &gt; {greeting}
           </span>
-          <span className="inline-block w-2 h-4 bg-secondary animate-pulse" />
+          <span className="inline-block w-1.5 sm:w-2 h-3.5 sm:h-4 bg-secondary animate-pulse" />
         </div>
 
         {/* Name Title */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-on-surface leading-[1.1]">
+        <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-on-surface leading-[1.15]">
           {name}
         </h1>
 
         {/* Bio Description */}
-        <p className="text-on-surface-variant text-base sm:text-lg leading-relaxed max-w-xl">
+        <p className="text-on-surface-variant text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl">
           {bio}
         </p>
 
         {/* Call to Actions */}
-        <div className="flex flex-wrap items-center gap-4 pt-2">
-          <a href="#projects">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
+          <a href="#projects" className="w-full sm:w-auto">
             <Button
               variant="primary"
               size="lg"
+              className="w-full sm:w-auto"
               leftIcon={<CodeIcon className="w-4 h-4" />}
             >
               View Projects
             </Button>
           </a>
-          <a href="#contact">
+          <a href="#contact" className="w-full sm:w-auto">
             <Button
               variant="secondary"
               size="lg"
+              className="w-full sm:w-auto"
               leftIcon={<MailIcon className="w-4 h-4" />}
             >
               Contact Me
