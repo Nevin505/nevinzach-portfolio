@@ -378,14 +378,10 @@ export const TerminalModal = ({ isOpen, onClose }: TerminalModalProps) => {
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (historyIndex === -1) return;
-      const nextIndex = historyIndex + 1;
-      if (nextIndex >= commandList.length) {
-        setHistoryIndex(-1);
-        setInput("");
-      } else {
-        setHistoryIndex(nextIndex);
-        setInput(commandList[nextIndex]);
-      }
+      const nextIndex =
+        historyIndex + 1 >= commandList.length ? -1 : historyIndex + 1;
+      setHistoryIndex(nextIndex);
+      setInput(nextIndex === -1 ? "" : commandList[nextIndex]);
     }
   };
 
@@ -393,19 +389,20 @@ export const TerminalModal = ({ isOpen, onClose }: TerminalModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-in fade-in duration-200 overscroll-contain touch-none"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-sm animate-fade-in"
     >
-      <div className="relative w-full max-w-3xl h-[520px] max-h-[85vh] flex flex-col bg-[#0a0f14]/95 border border-outline-variant/60 rounded-xl shadow-2xl overflow-hidden font-mono text-sm backdrop-blur-xl overscroll-contain touch-auto">
-        {/* Terminal Header Bar */}
-        <div className="flex items-center justify-between px-4 py-3 bg-[#131920] border-b border-outline-variant/40 select-none">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-2xl bg-[#0a0f14] border border-outline-variant/40 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] sm:max-h-[80vh] border-t-2 border-t-secondary/60 animate-scale-in"
+      >
+        {/* Terminal Title Bar */}
+        <div className="flex items-center justify-between px-4 py-2.5 bg-[#0e141a] border-b border-outline-variant/30 select-none">
           <div className="flex items-center gap-2">
-            <button
+            <span
               onClick={onClose}
               className="w-3 h-3 rounded-full bg-[#ff5f56] hover:brightness-125 transition-all cursor-pointer"
-              title="Close (ESC)"
+              title="Close"
             />
             <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
             <button
