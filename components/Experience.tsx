@@ -39,13 +39,13 @@ export const Experience = () => {
 
       {/* Timeline Section */}
       <div className="relative space-y-8 sm:space-y-12">
-        {/* Continuous Vertical Timeline Track (hidden on screens < 360px) */}
-        <div className="hidden min-[360px]:block absolute left-4 sm:left-5 top-5 bottom-5 w-[2px] -translate-x-1/2 bg-outline-variant/40" />
+        {/* Continuous Vertical Timeline Track (hidden on mobile screens <= 375px) */}
+        <div className="hidden sm:block absolute left-4 sm:left-5 top-5 bottom-5 w-[2px] -translate-x-1/2 bg-outline-variant/40" />
 
         {experiences.map((item) => (
           <div key={item.id} className="relative flex items-start group">
-            {/* Timeline Node Icon (hidden on screens < 360px) */}
-            <div className="hidden min-[360px]:flex absolute left-4 sm:left-5 top-4 -translate-x-1/2 items-center justify-center w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-[#0e141a] border border-outline-variant/60 group-hover:border-secondary/70 text-on-surface group-hover:text-secondary shadow-md transition-all z-10">
+            {/* Timeline Node Icon (hidden on mobile screens <= 375px) */}
+            <div className="hidden sm:flex absolute left-4 sm:left-5 top-4 -translate-x-1/2 items-center justify-center w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-[#0e141a] border border-outline-variant/60 group-hover:border-secondary/70 text-on-surface group-hover:text-secondary shadow-md transition-all z-10">
               {item.iconType === "code" ? (
                 <CodeIcon className="w-4 sm:w-5 h-4 sm:h-5" />
               ) : (
@@ -53,8 +53,8 @@ export const Experience = () => {
               )}
             </div>
 
-            {/* Experience Card (full width without margin on screens < 360px) */}
-            <div className="w-full ml-0 min-[360px]:ml-10 sm:ml-14 bg-surface-container/90 border border-outline-variant/40 hover:border-secondary/60 rounded-xl p-5 sm:p-8 backdrop-blur-md shadow-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(76,215,246,0.12)]">
+            {/* Experience Card (full width on mobile screens <= 375px) */}
+            <div className="w-full ml-0 sm:ml-14 bg-surface-container/90 border border-outline-variant/40 hover:border-secondary/60 rounded-xl p-5 sm:p-8 backdrop-blur-md shadow-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(76,215,246,0.12)]">
               {/* Header: Role & Period Badge */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1.5">
                 <h2 className="text-xl sm:text-2xl font-bold text-on-surface group-hover:text-secondary transition-colors">
