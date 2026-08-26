@@ -9,8 +9,19 @@
       "company": "Creware Technologies",
       "period": "Nov 2024 - Present",
       "iconType": "monitor",
-      "skills": ["React.js", "NestJS", "MongoDB", "PostgreSQL", "Redis", "RabbitMQ", "Docker"],
-      "highlightSkills": ["Redis", "RabbitMQ"],
+      "skills": [
+        "React.js",
+        "NestJS",
+        "MongoDB",
+        "PostgreSQL",
+        "Redis",
+        "RabbitMQ",
+        "Docker"
+      ],
+      "highlightSkills": [
+        "Redis",
+        "RabbitMQ"
+      ],
       "points": [
         "Built and maintained full-stack web applications using React.js, NestJS, MongoDB, and PostgreSQL.",
         "Built RESTful APIs with Koa and NestJS, optimizing backend logic to reduce unnecessary code and improve API response times.",
@@ -25,12 +36,16 @@
       "company": "Bytestrone",
       "period": "Mar 2023 - Oct 2023",
       "iconType": "code",
-      "skills": ["Java", "React.js", "PostgreSQL"],
+      "skills": [
+        "Java",
+        "React.js",
+        "PostgreSQL"
+      ],
       "highlightSkills": [],
       "points": [
-        "Developed full-stack applications using Java, React.js, and PostgreSQL to support business and operational requirements.",
-        "Built and maintained backend services, database integrations, and responsive frontend interfaces for efficient system performance.",
-        "Collaborated on application development, troubleshooting, and feature enhancements while managing code through structured development workflows."
+        "Completed hands-on training in Java, React.js, and PostgreSQL, building a strong foundation in full-stack application development.",
+        "Applied learned concepts by developing a full-stack project, implementing backend functionality, database integration, and responsive frontend features.",
+        "Participated in regular code reviews and technical feedback sessions, improving code quality, debugging skills, and understanding of software development best practices."
       ]
     }
   ]
