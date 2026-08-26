@@ -1,16 +1,43 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { checkRateLimit, getRateLimitHeaders } from "@/lib/rateLimit";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { name, email, subject, message } = body;
 
-    // 1. Validation
+    // 1. Rate Limiting Check (e.g. 3 submissions per 10 minutes per IP/sender)
+    const rateLimit = checkRateLimit(req, email, {
+      max: 3,
+      windowMs: 10 * 60 * 1000,
+    });
+
+    const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+
+    if (!rateLimit.success) {
+      const waitMinutes = Math.ceil(rateLimit.retryAfterSeconds / 60);
+      console.warn(
+        `⛔ [DEV_OS] Transmission rate limit triggered for ${email || "unknown"}. Retry in ${rateLimit.retryAfterSeconds}s.`
+      );
+
+      return NextResponse.json(
+        {
+          error: `Transmission rate limit exceeded. Too many requests. Please wait ${waitMinutes} minute${waitMinutes > 1 ? "s" : ""} before transmitting again.`,
+          retryAfter: rateLimit.retryAfterSeconds,
+        },
+        {
+          status: 429,
+          headers: rateLimitHeaders,
+        }
+      );
+    }
+
+    // 2. Validation
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: "Missing required fields (name, email, message)." },
-        { status: 400 }
+        { status: 400, headers: rateLimitHeaders }
       );
     }
 
@@ -18,11 +45,11 @@ export async function POST(req: Request) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: "Invalid email format provided." },
-        { status: 400 }
+        { status: 400, headers: rateLimitHeaders }
       );
     }
 
-    // 2. Read SMTP credentials & clean formatting (removes spaces from Google App Passwords)
+    // 3. Read SMTP credentials & clean formatting (removes spaces from Google App Passwords)
     const rawHost = process.env.SMTP_HOST || "smtp.gmail.com";
     const smtpHost = rawHost.replace(/['"]+/g, "").trim();
     const smtpPort = Number(process.env.SMTP_PORT?.replace(/['"]+/g, "").trim()) || 465;
@@ -40,10 +67,13 @@ export async function POST(req: Request) {
     if (!smtpUser || !smtpPass) {
       const missingConfig = `Something Went Wrong`;
       console.error(`❌ [DEV_OS] ${missingConfig}`);
-      return NextResponse.json({ error: missingConfig }, { status: 500 });
+      return NextResponse.json(
+        { error: missingConfig },
+        { status: 500, headers: rateLimitHeaders }
+      );
     }
 
-    // 3. Create Transporter (supports Gmail service helper & standard SMTP)
+    // 4. Create Transporter (supports Gmail service helper & standard SMTP)
     const isGmail =
       smtpHost.includes("gmail") || smtpUser.toLowerCase().includes("@gmail.com");
 
@@ -69,7 +99,7 @@ export async function POST(req: Request) {
       ? `[DEV_OS] ${subject} - from ${name}`
       : `[DEV_OS] New Transmission from ${name}`;
 
-    // 4. Styled HTML Transmission Payload
+    // 5. Styled HTML Transmission Payload
     const htmlContent = `
       <div style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; background-color: #0e141a; color: #dde3eb; padding: 24px; border-radius: 12px; border: 1px solid #424754;">
         <div style="border-bottom: 1px solid #424754; padding-bottom: 12px; margin-bottom: 16px;">
@@ -107,7 +137,7 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    // 5. Send Email
+    // 6. Send Email
     const info = await transporter.sendMail({
       from: `"${name} (DEV_OS)" <${smtpUser}>`,
       to: receiverEmail,
@@ -119,11 +149,16 @@ export async function POST(req: Request) {
 
     console.log(`✅ [DEV_OS] Transmission successfully dispatched! Message ID: ${info.messageId}`);
 
-    return NextResponse.json({
-      success: true,
-      message: "Transmission dispatched successfully.",
-      messageId: info.messageId,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Transmission dispatched successfully.",
+        messageId: info.messageId,
+      },
+      {
+        headers: rateLimitHeaders,
+      }
+    );
   } catch (error: unknown) {
     console.error("❌ [DEV_OS] Nodemailer Transmission Error:", error);
     const errorMessage =
