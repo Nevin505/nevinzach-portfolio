@@ -27,7 +27,7 @@
         "Redis",
         "Docker"
       ],
-      "highlightTag": "Socket.IO",
+      "highlightTag": "Redis",
       "githubUrl": "https://github.com/Nevin505/web-socket",
       "liveUrl": "#"
     }
