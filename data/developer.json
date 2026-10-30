@@ -3,30 +3,11 @@
   "name": "Nevin Zachariah John",
   "bio": "Full Stack Developer with hands-on experience building scalable backend systems using Node.js, NestJS, and PostgreSQL. Skilled in designing RESTful APIs, optimizing database performance with TypeORM, and improving system reliability through Redis caching and RabbitMQ-based queue processing. Experienced in containerized deployments, CI/CD pipelines, and payment gateway integrations, with a strong focus on clean, maintainable, production-ready code.",
   "developer": {
-    "focus": [
-      "Full-stack systems",
-      "Scalable APIs & data platforms"
-    ],
-    "languages": [
-      "JavaScript",
-      "TypeScript",
-      "Java"
-    ],
-    "frameworks": [
-      "Next.js",
-      "NestJS",
-      "React",
-      "Spring Boot"
-    ],
-    "database": [
-      "PostgreSQL",
-      "MongoDB"
-    ],
-    "devops": [
-      "RabbitMQ",
-      "CI/CD Pipelines",
-      "YAML"
-    ],
+    "focus": ["Full-stack systems", "Scalable APIs & data platforms"],
+    "languages": ["JavaScript", "TypeScript", "Java", "Python"],
+    "frameworks": ["Next.js", "NestJS", "React", "Spring Boot"],
+    "database": ["PostgreSQL", "MongoDB"],
+    "devops": ["RabbitMQ", "CI/CD Pipelines", "YAML"],
     "principle": [
       "Build reliable systems",
       "that turn complex business",
